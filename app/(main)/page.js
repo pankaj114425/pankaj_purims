@@ -8,9 +8,9 @@ import SortIcon from "@/icons/SortIcon";
 import CardContent from "@/components/UI/CardContent";
 import SubjectChart from "@/components/subjectchart";
 import LineChart from "@/components/linechart";
-// import Research_icon from "@/icons/Research_icon";
-// import Fund_icon from "@/icons/Fund_icon";
-// import Phd_icon from "@/icons/Phd_icons";
+import Research_icon from "@/icons/Research_icon";
+import Fund_icon from "@/icons/Fund_icon";
+import Phd_icon from "@/icons/Phd_icons";
 import {
   getDepartmentPubChart,
   getDepartmentSocialMetrics,
@@ -20,9 +20,9 @@ import {
   getDepartmentYearlyChart,
   getDepts,
   getMetrics,
-  // univphds,
-  // univprojects,
-  // univprojectfund,
+  univphds,
+  univprojects,
+  univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
 // import PubTypeChart from "@/components/pubTypeChart";
@@ -31,17 +31,17 @@ import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
 
 export default async function Home() {
-  // let data = await getDepts();
-  // data = data?.filter((d) => d._id != "pu");
+  let data = await getDepts();
+  data = data?.filter((d) => d._id != "pu");
   // const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChart = await getDepartmentPubChart("pu");
   // const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
-  // const totalProjectFund = await univprojectfund();
-  // const totalPhds = await univphds();
-  // const totalProjects = await univprojects();
+  const totalProjectFund = await univprojectfund();
+  const totalPhds = await univphds();
+  const totalProjects = await univprojects();
 
   const { TWEET_COUNT } = await getDepartmentSocialMetrics("pu");
   let impact = pubChart.reduce(
@@ -191,7 +191,7 @@ export default async function Home() {
           icon={<CrossRefIcon width={150} height={48} />}
         />
 
-        {/* <StatCard
+        <StatCard
           className="col-span-4 self-stretch"
           stat={totalProjects}
           statTitle={"Research Projects "}
@@ -214,7 +214,7 @@ export default async function Home() {
           statDesc="Number of Phds awarded"
           icon={<Phd_icon />}
           iconClass=""
-        /> */}
+        />
             
       </div>
       <div className="grid-12 p-4 mx-auto max-w-7xl">
@@ -297,7 +297,7 @@ export default async function Home() {
           research.
         </div>
       </div>
-      {/* <div className="p-4 grid-12 mx-auto max-w-screen-2xl">
+      <div className="p-4 grid-12 mx-auto max-w-screen-2xl">
         {data.slice(0, 6).map((a, i) => (
           <Card
             className={`col-span-6 p-4 h-full fade-side-${
@@ -344,7 +344,7 @@ export default async function Home() {
             View All
           </Link>
         </div>
-      </div> */}
+      </div>
       <footer className="h-60 w-full" />
     </div>
   );
