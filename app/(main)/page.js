@@ -25,18 +25,18 @@ import {
   // univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
-import PubTypeChart from "@/components/pubTypeChart";
-import SubTypeChart from "@/components/typechart";
+// import PubTypeChart from "@/components/pubTypeChart";
+// import SubTypeChart from "@/components/typechart";
 import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
 
 export default async function Home() {
   // let data = await getDepts();
   // data = data?.filter((d) => d._id != "pu");
-  const subjectChart = await getDepartmentSubjectChart("pu");
+  // const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChart = await getDepartmentPubChart("pu");
-  const subtypeChart = await getDepartmentSubtypeChart("pu");
+  // const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
   // const totalProjectFund = await univprojectfund();
@@ -244,7 +244,7 @@ export default async function Home() {
         </div>
         <div id="b-to-t" />
       </div>
-      <div className="grid-12 p-4 mx-auto max-w-7xl">
+      {/* <div className="grid-12 p-4 mx-auto max-w-7xl">
         <div className="col-span-12 text-center mb-8 mt-32 fade-scroll">
           <div className="mb-1 huge-text">
             Features among prestigious journals
@@ -286,7 +286,7 @@ export default async function Home() {
           classType="col-span-4 fade-side-left"
           classChart="col-span-8 fade-side-right"
         />
-      </div>
+      </div> */}
       <div className="text-center mb-8 mt-32 fade-scroll">
         <div className="mb-1 huge-text">Department for everyone</div>
         <div className="max-w-2xl big-text mx-auto">
