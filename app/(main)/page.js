@@ -31,8 +31,8 @@ import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
 
 export default async function Home() {
-  let data = await getDepts();
-  data = data?.filter((d) => d._id != "pu");
+  // let data = await getDepts();
+  // data = data?.filter((d) => d._id != "pu");
   const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChart = await getDepartmentPubChart("pu");
@@ -297,7 +297,7 @@ export default async function Home() {
           research.
         </div>
       </div>
-      <div className="p-4 grid-12 mx-auto max-w-screen-2xl">
+      {/* <div className="p-4 grid-12 mx-auto max-w-screen-2xl">
         {data.slice(0, 6).map((a, i) => (
           <Card
             className={`col-span-6 p-4 h-full fade-side-${
@@ -344,7 +344,7 @@ export default async function Home() {
             View All
           </Link>
         </div>
-      </div>
+      </div> */}
       <footer className="h-60 w-full" />
     </div>
   );
