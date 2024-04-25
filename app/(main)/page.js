@@ -280,12 +280,12 @@ export default async function Home() {
             is one of the leading institution for research in India.
           </div>
         </div>
-        <SubjectChart
+        {/* <SubjectChart
           baseURL={`/document`}
           data={subjectChart}
           classType="col-span-4 fade-side-left"
           classChart="col-span-8 fade-side-right"
-        /> 
+        />  */}
       </div>
       <div className="text-center mb-8 mt-32 fade-scroll">
         <div className="mb-1 huge-text">Department for everyone</div>
