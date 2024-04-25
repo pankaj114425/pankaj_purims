@@ -8,9 +8,9 @@ import SortIcon from "@/icons/SortIcon";
 import CardContent from "@/components/UI/CardContent";
 import SubjectChart from "@/components/subjectchart";
 import LineChart from "@/components/linechart";
-import Research_icon from "@/icons/Research_icon";
-import Fund_icon from "@/icons/Fund_icon";
-import Phd_icon from "@/icons/Phd_icons";
+// import Research_icon from "@/icons/Research_icon";
+// import Fund_icon from "@/icons/Fund_icon";
+// import Phd_icon from "@/icons/Phd_icons";
 import {
   getDepartmentPubChart,
   getDepartmentSocialMetrics,
@@ -20,9 +20,9 @@ import {
   getDepartmentYearlyChart,
   getDepts,
   getMetrics,
-  univphds,
-  univprojects,
-  univprojectfund,
+  // univphds,
+  // univprojects,
+  // univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
 import PubTypeChart from "@/components/pubTypeChart";
@@ -39,10 +39,10 @@ export default async function Home() {
   const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
-  const totalProjectFund = await univprojectfund();
-  const totalPhds = await univphds();
-  const totalProjects = await univprojects();
-  console.log(totalProjects);
+  // const totalProjectFund = await univprojectfund();
+  // const totalPhds = await univphds();
+  // const totalProjects = await univprojects();
+
   const { TWEET_COUNT } = await getDepartmentSocialMetrics("pu");
   let impact = pubChart.reduce(
     (p, t) =>
@@ -191,7 +191,7 @@ export default async function Home() {
           icon={<CrossRefIcon width={150} height={48} />}
         />
 
-        <StatCard
+        {/* <StatCard
           className="col-span-4 self-stretch"
           stat={totalProjects}
           statTitle={"Research Projects "}
@@ -214,7 +214,7 @@ export default async function Home() {
           statDesc="Number of Phds awarded"
           icon={<Phd_icon />}
           iconClass=""
-        />
+        /> */}
             
       </div>
       <div className="grid-12 p-4 mx-auto max-w-7xl">
