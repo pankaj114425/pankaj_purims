@@ -46,8 +46,12 @@ const NewUser = ({ session, newUser, otherProject }) => {
             body: JSON.stringify({data: data,auid: session?.scopusID})
         });
         const value=await res.json();
+
         if(value?.success){
-            window.location.reload();
+            if (typeof window !== "undefined"){
+                window?.location.reload();
+            }
+            
         }
     }
     return (

@@ -25,7 +25,7 @@ import {
   univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
-import PubTypeChart from "@/components/pubTypeChart";
+// import PubTypeChart from "@/components/pubTypeChart";
 import SubTypeChart from "@/components/typechart";
 import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
@@ -33,7 +33,8 @@ import XIcon from "@/icons/X";
 export default async function Home() {
   let data = await getDepts();
   data = data?.filter((d) => d._id != "pu");
-  // const subjectChart = await getDepartmentSubjectChart("pu");
+  const subjectChart = await getDepartmentSubjectChart("pu");
+  // console.log(subjectChart)
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChart = await getDepartmentPubChart("pu");
   const subtypeChart = await getDepartmentSubtypeChart("pu");
@@ -267,12 +268,12 @@ export default async function Home() {
           classType="col-span-4 fade-side-right"
           classChart="col-span-8 fade-side-left bg-transparent"
         /> */}
-        <SubTypeChart
+        {/* <SubTypeChart
           baseURL={`/document`}
           data={subtypeChart}
           classType="col-span-4 fade-side-left"
           classChart="col-span-8 fade-side-right"
-        />
+        /> */}
         <div className="col-span-12 text-center mb-8 mt-32 fade-scroll">
           <div className="mb-1 huge-text">Diverse fields of research</div>
           <div className="max-w-xl big-text mx-auto">
