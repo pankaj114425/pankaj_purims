@@ -44,14 +44,15 @@ export default async function Home() {
   const totalProjects = await univprojects();
 
   const { TWEET_COUNT } = await getDepartmentSocialMetrics("pu");
-  let impact = pubChart.reduce(
+  {/*let impact = pubChart.reduce(
     (p, t) =>
       p +
       (parseInt(t.metrics?.impactFactorData?.metrics?.impactMetrics?.jif) ||
         0) *
         t.value,
     0
-  );
+  );*/}
+  let impact=5;
 
   return (
     <div id="home-main" className="dark">
