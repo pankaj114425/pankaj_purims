@@ -20,9 +20,9 @@ import {
   getDepartmentYearlyChart,
   getDepts,
   getMetrics,
-  univphds,
-  univprojects,
-  univprojectfund,
+  // univphds,
+  // univprojects,
+  // univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
 import PubTypeChart from "@/components/pubTypeChart";
@@ -39,10 +39,10 @@ export default async function Home() {
   const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
-  const totalProjectFund = await univprojectfund();
-  const totalPhds = await univphds();
-  const totalProjects = await univprojects();
-  console.log(totalProjects);
+  // const totalProjectFund = await univprojectfund();
+  // const totalPhds = await univphds();
+  // const totalProjects = await univprojects();
+  // console.log(totalProjects);
   const { TWEET_COUNT } = await getDepartmentSocialMetrics("pu");
   let impact = pubChart.reduce(
     (p, t) =>
@@ -190,7 +190,7 @@ export default async function Home() {
           statDesc={"On CrossRef"}
           icon={<CrossRefIcon width={150} height={48} />}
         />
-
+{/* 
         <StatCard
           className="col-span-4 self-stretch"
           stat={totalProjects}
@@ -198,23 +198,23 @@ export default async function Home() {
           statDesc="All research project granted"
           icon={<Research_icon />}
           iconClass=""
-        />
-        <StatCard
+        /> */}
+        {/* <StatCard
           className="col-span-4 self-stretch"
           stat={totalProjectFund}
           statTitle={"Research Funds"}
           statDesc=" Total Research funds generated"
           icon={<Fund_icon />}
           iconClass=""
-        />
-        <StatCard
+        /> */}
+        {/* <StatCard
           className="col-span-4 self-stretch"
           stat={totalPhds}
           statTitle={"Phds"}
           statDesc="Number of Phds awarded"
           icon={<Phd_icon />}
           iconClass=""
-        />
+        /> */}
       </div>
       <div className="grid-12 p-4 mx-auto max-w-7xl">
         <div className="col-span-12 text-center my-8 fade-scroll">
