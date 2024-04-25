@@ -36,7 +36,7 @@ export default async function Home() {
   // const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChart = await getDepartmentPubChart("pu");
-  // const subtypeChart = await getDepartmentSubtypeChart("pu");
+  const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
   const totalProjectFund = await univprojectfund();
@@ -261,18 +261,18 @@ export default async function Home() {
             and <span className="highlighted-text"><Link href={"/document/?page=1&sort=coverDate&order=descending&pub=20699"}>Science</Link></span>.
           </div>
         </div>
-        <PubTypeChart
+        {/* <PubTypeChart
           baseURL={`/document`}
           data={pubChart}
           classType="col-span-4 fade-side-right"
           classChart="col-span-8 fade-side-left bg-transparent"
-        />
-        {/* <SubTypeChart
+        /> */}
+        <SubTypeChart
           baseURL={`/document`}
           data={subtypeChart}
           classType="col-span-4 fade-side-left"
           classChart="col-span-8 fade-side-right"
-        /> */}
+        />
         <div className="col-span-12 text-center mb-8 mt-32 fade-scroll">
           <div className="mb-1 huge-text">Diverse fields of research</div>
           <div className="max-w-xl big-text mx-auto">
