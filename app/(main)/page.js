@@ -25,8 +25,8 @@ import {
   univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
-import PubTypeChart from "@/components/pubTypeChart";
-import SubTypeChart from "@/components/typechart";
+// import PubTypeChart from "@/components/pubTypeChart";
+// import SubTypeChart from "@/components/typechart";
 import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
 
