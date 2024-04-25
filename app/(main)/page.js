@@ -6,7 +6,7 @@ import DocIcon from "@/icons/docIcon";
 import ScopusIcon from "@/icons/Scopus";
 import SortIcon from "@/icons/SortIcon";
 import CardContent from "@/components/UI/CardContent";
-// import SubjectChart from "@/components/subjectchart";
+import SubjectChart from "@/components/subjectchart";
 import LineChart from "@/components/linechart";
 import Research_icon from "@/icons/Research_icon";
 import Fund_icon from "@/icons/Fund_icon";
@@ -25,18 +25,18 @@ import {
   univprojectfund,
 } from "@/utils/mongo";
 import StatCard from "./StatCard";
-// import PubTypeChart from "@/components/pubTypeChart";
-// import SubTypeChart from "@/components/typechart";
+import PubTypeChart from "@/components/pubTypeChart";
+import SubTypeChart from "@/components/typechart";
 import Globe3D from "@/components/Globe3D";
 import XIcon from "@/icons/X";
 
 export default async function Home() {
   let data = await getDepts();
   data = data?.filter((d) => d._id != "pu");
-  // const subjectChart = await getDepartmentSubjectChart("pu");
+  const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
-  // const pubChart = await getDepartmentPubChart("pu");
-  // const subtypeChart = await getDepartmentSubtypeChart("pu");
+  const pubChart = await getDepartmentPubChart("pu");
+  const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
   const totalProjectFund = await univprojectfund();
