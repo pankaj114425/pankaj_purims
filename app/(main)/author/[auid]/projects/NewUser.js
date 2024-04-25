@@ -49,9 +49,9 @@ const NewUser = ({ session, newUser, otherProject }) => {
 
         if(value?.success){
             if (typeof window !== "undefined"){
-                window?.location.reload();
+                
             }
-            
+            window.location.reload();
         }
     }
     return (

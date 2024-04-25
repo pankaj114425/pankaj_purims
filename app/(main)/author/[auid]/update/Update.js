@@ -58,9 +58,9 @@ const UpdatePage = ({ data, display }) => {
       if (result.success) {
         // router.refresh();
         router.push(`/author/${data.scopusID}`);
-        // setTimeout(()=>{
-        //   window.location.reload();
-        // },2000);
+        setTimeout(()=>{
+          window.location.reload();
+        },2000);
       } 
     } catch (error) {
       console.log(error);
