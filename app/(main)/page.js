@@ -215,6 +215,7 @@ export default async function Home() {
         //   icon={<Phd_icon />}
         //   iconClass=""
         // />
+            
       </div>
       <div className="grid-12 p-4 mx-auto max-w-7xl">
         <div className="col-span-12 text-center my-8 fade-scroll">
