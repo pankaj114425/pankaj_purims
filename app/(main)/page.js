@@ -6,7 +6,7 @@ import DocIcon from "@/icons/docIcon";
 import ScopusIcon from "@/icons/Scopus";
 import SortIcon from "@/icons/SortIcon";
 import CardContent from "@/components/UI/CardContent";
-import SubjectChart from "@/components/subjectchart";
+// import SubjectChart from "@/components/subjectchart";
 import LineChart from "@/components/linechart";
 import Research_icon from "@/icons/Research_icon";
 import Fund_icon from "@/icons/Fund_icon";
