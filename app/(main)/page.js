@@ -52,7 +52,7 @@ export default async function Home() {
         t.value,
     0
   );*/}
-  let impact=5;
+
 
   return (
     <div id="home-main" className="dark">
@@ -149,7 +149,7 @@ export default async function Home() {
             </Icon>
           }
         />
-        <StatCard
+        {/*<StatCard
           className="col-span-4 self-stretch"
           stat={impact}
           statTitle={"Total Impact Factor"}
@@ -158,7 +158,7 @@ export default async function Home() {
               <SortIcon />
             </Icon>
           }
-        />
+        />*/}
         <StatCard
           className="col-span-4 self-stretch"
           stat={metrics.fundedCount}
