@@ -794,7 +794,76 @@ export const getAuthorPositions = cache(async (auid, { from, to } = {}) => {
   };
 });
 
+export const getAuthorPubChart = cache(async (auid, { from, to } = {}) => {
+  let chart = await documents
+    .aggregate([
+      {
+        $match: {
+          authorIDs: auid,
+          ...(from &&
+            to && {
+            coverDate: {
+              $gte: new Date(from),
+              $lte: new Date(to),
+            },
+          }),
+        },
+      },
+      {
+        $project: {
+          sourceID: "$source.sourceID",
+          source: "$source.publicationName",
+        },
+      },
+      {
+        $group: {
+          _id: {
+            sourceID: "$sourceID",
+            source: "$source",
+          },
+          value: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "sources",
+          localField: "_id.sourceID",
+          foreignField: "_id",
+          pipeline: [
+            {
+              $project: {
+                citeScore: "$citeScore",
+                snip: "$snip",
+                sjr: "$sjr",
+                impactFactorData: "$impactFactorData",
+              },
+            },
+          ],
+          as: "metrics",
+        },
+      },
+      {
+        $set: {
+          metrics: {
+            $arrayElemAt: ["$metrics", 0],
+          },
+        },
+      },
+      {
+        $project: {
+          id: "$_id.sourceID",
+          label: "$_id.source",
+          metrics: "$metrics",
+          value: "$value",
+        },
+      },
+    ])
+    .toArray();
 
+  return chart;
+});
 
 export const getAuthorWorldChart = cache(async (auid, { from, to } = {}) => {
   let chart = await documents
@@ -1009,11 +1078,11 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
           },
           ...(from &&
             to && {
-            coverDate: {
-              $gte: new Date(from),
-              $lte: new Date(to),
-            },
-          }),
+              coverDate: {
+                $gte: new Date(from),
+                $lte: new Date(to),
+              },
+            }),
         },
       },
       {
