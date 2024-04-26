@@ -36,7 +36,7 @@ export default async function Home() {
   const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   // const pubChart = await getDepartmentPubChart("pu");
-  // const subtypeChart = await getDepartmentSubtypeChart("pu");
+  const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
   const totalProjectFund = await univprojectfund();
