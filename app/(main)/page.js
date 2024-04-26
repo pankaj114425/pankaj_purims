@@ -33,7 +33,7 @@ import XIcon from "@/icons/X";
 export default async function Home() {
   let data = await getDepts();
   data = data?.filter((d) => d._id != "pu");
-  // const subjectChart = await getDepartmentSubjectChart("pu");
+  const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   // const pubChart = await getDepartmentPubChart("pu");
   // const subtypeChart = await getDepartmentSubtypeChart("pu");
