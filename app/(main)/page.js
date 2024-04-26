@@ -262,12 +262,12 @@ export default async function Home() {
             and <span className="highlighted-text"><Link href={"/document/?page=1&sort=coverDate&order=descending&pub=20699"}>Science</Link></span>.
           </div>
         </div>
-        {/* <PubTypeChart
+         <PubTypeChart
           baseURL={`/document`}
           data={pubChart}
           classType="col-span-4 fade-side-right"
           classChart="col-span-8 fade-side-left bg-transparent"
-        /> */}
+        /> 
  <SubTypeChart
           baseURL={`/document`}
           data={subtypeChart}
