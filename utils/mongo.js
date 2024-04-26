@@ -794,76 +794,61 @@ export const getAuthorPositions = cache(async (auid, { from, to } = {}) => {
   };
 });
 
-export const getAuthorPubChart = cache(async (auid, { from, to } = {}) => {
-  let chart = await documents
-    .aggregate([
-      {
-        $match: {
-          authorIDs: auid,
-          ...(from &&
-            to && {
-            coverDate: {
-              $gte: new Date(from),
-              $lte: new Date(to),
+export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
+  let aggregationPipeline = [
+    {
+      $match: {
+        departments: dept,
+        subjectAreas: { $exists: true },
+        ...(from && to && {
+          coverDate: { $gte: new Date(from), $lte: new Date(to) },
+        }),
+      },
+    },
+    {
+      $group: {
+        _id: { sourceID: "$source.sourceID", source: "$source.publicationName" },
+        value: { $sum: 1 },
+      },
+    },
+    {
+      $lookup: {
+        from: "sources",
+        localField: "_id.sourceID",
+        foreignField: "_id",
+        pipeline: [
+          {
+            $project: {
+              citeScore: "$citeScore",
+              snip: "$snip",
+              sjr: "$sjr",
+              impactFactorData: "$impactFactorData",
             },
-          }),
-        },
-      },
-      {
-        $project: {
-          sourceID: "$source.sourceID",
-          source: "$source.publicationName",
-        },
-      },
-      {
-        $group: {
-          _id: {
-            sourceID: "$sourceID",
-            source: "$source",
           },
-          value: {
-            $sum: 1,
-          },
-        },
+        ],
+        as: "metrics",
       },
-      {
-        $lookup: {
-          from: "sources",
-          localField: "_id.sourceID",
-          foreignField: "_id",
-          pipeline: [
-            {
-              $project: {
-                citeScore: "$citeScore",
-                snip: "$snip",
-                sjr: "$sjr",
-                impactFactorData: "$impactFactorData",
-              },
-            },
-          ],
-          as: "metrics",
-        },
+    },
+    {
+      $set: {
+        metrics: { $arrayElemAt: ["$metrics", 0] },
       },
-      {
-        $set: {
-          metrics: {
-            $arrayElemAt: ["$metrics", 0],
-          },
-        },
+    },
+    {
+      $project: {
+        id: "$_id.sourceID",
+        label: "$_id.source",
+        metrics: "$metrics",
+        value: "$value",
       },
-      {
-        $project: {
-          id: "$_id.sourceID",
-          label: "$_id.source",
-          metrics: "$metrics",
-          value: "$value",
-        },
-      },
-    ])
-    .toArray();
+    },
+  ];
+
+  let chart = await documents.aggregate(aggregationPipeline).toArray();
 
   return chart;
 });
+
 
 export const getAuthorWorldChart = cache(async (auid, { from, to } = {}) => {
   let chart = await documents
