@@ -795,60 +795,78 @@ export const getAuthorPositions = cache(async (auid, { from, to } = {}) => {
 });
 
 export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
-  let aggregationPipeline = [
-    {
-      $match: {
-        departments: dept,
-        subjectAreas: { $exists: true },
-        ...(from && to && {
-          coverDate: { $gte: new Date(from), $lte: new Date(to) },
-        }),
-      },
-    },
-    {
-      $group: {
-        _id: { sourceID: "$source.sourceID", source: "$source.publicationName" },
-        value: { $sum: 1 },
-      },
-    },
-    {
-      $lookup: {
-        from: "sources",
-        localField: "_id.sourceID",
-        foreignField: "_id",
-        pipeline: [
-          {
-            $project: {
-              citeScore: "$citeScore",
-              snip: "$snip",
-              sjr: "$sjr",
-              impactFactorData: "$impactFactorData",
-            },
+  let chart = await documents
+    .aggregate([
+      {
+        $match: {
+          departments: dept,
+          subjectAreas: {
+            $exists: true,
           },
-        ],
-        as: "metrics",
+          ...(from &&
+            to && {
+              coverDate: {
+                $gte: new Date(from),
+                $lte: new Date(to),
+              },
+            }),
+        },
       },
-    },
-    {
-      $set: {
-        metrics: { $arrayElemAt: ["$metrics", 0] },
+      {
+        $project: {
+          sourceID: "$source.sourceID",
+          source: "$source.publicationName",
+        },
       },
-    },
-    {
-      $project: {
-        id: "$_id.sourceID",
-        label: "$_id.source",
-        metrics: "$metrics",
-        value: "$value",
+      {
+        $group: {
+          _id: {
+            sourceID: "$sourceID",
+            source: "$source",
+          },
+          value: {
+            $sum: 1,
+          },
+        },
       },
-    },
-  ];
-
-  let chart = await documents.aggregate(aggregationPipeline).toArray();
+      {
+        $lookup: {
+          from: "sources",
+          localField: "_id.sourceID",
+          foreignField: "_id",
+          pipeline: [
+            {
+              $project: {
+                citeScore: "$citeScore",
+                snip: "$snip",
+                sjr: "$sjr",
+                impactFactorData: "$impactFactorData",
+              },
+            },
+          ],
+          as: "metrics",
+        },
+      },
+      {
+        $set: {
+          metrics: {
+            $arrayElemAt: ["$metrics", 0],
+          },
+        },
+      },
+      {
+        $project: {
+          id: "$_id.sourceID",
+          label: "$_id.source",
+          metrics: "$metrics",
+          value: "$value",
+        },
+      },
+    ])
+    .toArray();
 
   return chart;
 });
-
 
 
 export const getAuthorWorldChart = cache(async (auid, { from, to } = {}) => {
