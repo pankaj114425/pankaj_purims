@@ -35,18 +35,18 @@ export default async function Home() {
   data = data?.filter((d) => d._id != "pu");
   const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
-  // const pubChartData = await getDepartmentPubChart("pu");
-  // const pubChart = 
-  //   pubChartData?.map( (item) => {
-  //     return {
-  //       _id: item._id,
-  //       id: item._id.sourceID,
-  //       label: item._id.source,
+  const pubChartData = await getDepartmentPubChart("pu");
+  const pubChart = 
+    pubChartData?.map( (item) => {
+      return {
+        _id: item._id,
+        id: item._id.sourceID,
+        label: item._id.source,
 
-  //       metrics: item.metrics,
-  //       value: item.value,
-  //     };
-    // })
+        metrics: item.metrics,
+        value: item.value,
+      };
+    })
   const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
