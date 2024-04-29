@@ -394,8 +394,8 @@ import Globe3D from "@/components/Globe3D";
 import Header from "@/components/Header/Header";
 import XIcon from "@/icons/X";
 import SocialCard from "@/components/socialCard";
-import Research_icon from "@/icons/Research_icon";
-import Fund_icon from "@/icons/Fund_icon";
+// import Research_icon from "@/icons/Research_icon";
+// import Fund_icon from "@/icons/Fund_icon";
 // import Phd_icon from "@/icons/Phd_icon";
 
 
@@ -529,30 +529,30 @@ export default async function Home() {
 					statDesc={"On CrossRef"}
 					icon={<CrossRefIcon width={150} height={48} />}
 				/>
-				<StatCard
-					className="col-span-4 self-stretch"
-					stat={project_count}
-					statTitle={"Research Projects "}
-					statDesc="All research project granted"
-					icon={<Research_icon />}
-					iconClass=""
-				/>
-				<StatCard
-					className="col-span-4 self-stretch"
-					stat={projectfund.totalFund}
-					statTitle={"Research Funds"}
-					statDesc=" Total Research funds generated"
-					icon={<Fund_icon />}
-					iconClass=""
-				/>
-				<StatCard
-					className="col-span-4 self-stretch"
-					stat={totalphds.phds}
-					statTitle={"Phds"}
-					statDesc="Number of Phds awarded"
-					icon={<Phd_icon/>}
-					iconClass=""
-				/>
+				// <StatCard
+				// 	className="col-span-4 self-stretch"
+				// 	stat={project_count}
+				// 	statTitle={"Research Projects "}
+				// 	statDesc="All research project granted"
+				// 	icon={<Research_icon />}
+				// 	iconClass=""
+				// />
+				// <StatCard
+				// 	className="col-span-4 self-stretch"
+				// 	stat={projectfund.totalFund}
+				// 	statTitle={"Research Funds"}
+				// 	statDesc=" Total Research funds generated"
+				// 	icon={<Fund_icon />}
+				// 	iconClass=""
+				// />
+				// <StatCard
+				// 	className="col-span-4 self-stretch"
+				// 	stat={totalphds.phds}
+				// 	statTitle={"Phds"}
+				// 	statDesc="Number of Phds awarded"
+				// 	icon={<Phd_icon/>}
+				// 	iconClass=""
+				// />
 			</div>
 			<div className="z-20 relative">
 				<div id="t-to-b" />
