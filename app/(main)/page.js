@@ -10,7 +10,7 @@
 // import LineChart from "@/components/linechart";
 // import Research_icon from "@/icons/Research_icon";
 // import Fund_icon from "@/icons/Fund_icon";
-import Phd_icon from "@/icons/Phd_icons";
+// import Phd_icon from "@/icons/Phd_icons";
 // import {
 //   getDepartmentPubChart,
 //   getDepartmentSocialMetrics,
@@ -396,7 +396,8 @@ import XIcon from "@/icons/X";
 import SocialCard from "@/components/socialCard";
 import Research_icon from "@/icons/Research_icon";
 import Fund_icon from "@/icons/Fund_icon";
-import Phd_icon from "@/icons/Phd_icon";
+// import Phd_icon from "@/icons/Phd_icon";
+
 
 export default async function Home() {
 	let data = await getDepts();
