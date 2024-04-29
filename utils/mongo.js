@@ -1068,56 +1068,77 @@ export const getDepartmentSubjectChart = cache(
 );
 
 export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
-  let chart = await documents.aggregate([
-    {
-      $match: {
-        departments: dept,
-        subjectAreas: { $exists: true },
-        ...(from && to && {
-          coverDate: { $gte: new Date(from), $lte: new Date(to) }
-        })
-      }
-    },
-    {
-      $lookup: {
-        from: "sources",
-        localField: "source.sourceID",
-        foreignField: "_id",
-        as: "sourceInfo"
-      }
-    },
-    {
-      $unwind: "$sourceInfo"
-    },
-    {
-      $group: {
-        _id: {
+  let chart = await documents
+    .aggregate([
+      {
+        $match: {
+          departments: dept,
+          subjectAreas: {
+            $exists: true,
+          },
+          ...(from &&
+            to && {
+              coverDate: {
+                $gte: new Date(from),
+                $lte: new Date(to),
+              },
+            }),
+        },
+      },
+      {
+        $project: {
           sourceID: "$source.sourceID",
-          source: "$source.publicationName"
+          source: "$source.publicationName",
         },
-        value: { $sum: 1 },
-        // Retrieve metrics from the denormalized sourceInfo field
-        citeScore: { $first: "$sourceInfo.citeScore" },
-        snip: { $first: "$sourceInfo.snip" },
-        sjr: { $first: "$sourceInfo.sjr" },
-        impactFactorData: { $first: "$sourceInfo.impactFactorData" }
-      }
-    },
-    {
-      $project: {
-        id: "$_id.sourceID",
-        label: "$_id.source",
-        metrics: {
-          citeScore: "$citeScore",
-          snip: "$snip",
-          sjr: "$sjr",
-          impactFactorData: "$impactFactorData"
+      },
+      {
+        $group: {
+          _id: {
+            sourceID: "$sourceID",
+            source: "$source",
+          },
+          value: {
+            $sum: 1,
+          },
         },
-        value: "$value"
-      }
-    }
-  ]).toArray();
-  //  console.log(chart)
+      },
+      {
+        $lookup: {
+          from: "sources",
+          localField: "_id.sourceID",
+          foreignField: "_id",
+          pipeline: [
+            {
+              $project: {
+                citeScore: "$citeScore",
+                snip: "$snip",
+                sjr: "$sjr",
+                // impactFactorData: "$impactFactorData",
+              },
+            },
+          ],
+          as: "metrics",
+        },
+      },
+      {
+        $set: {
+          metrics: {
+            $arrayElemAt: ["$metrics", 0],
+          },
+        },
+      },
+      {
+        $project: {
+          id: "$_id.sourceID",
+          label: "$_id.source",
+          metrics: "$metrics",
+          value: "$value",
+        },
+      },
+    ])
+    .toArray();
+   
+
   return chart;
 });
 
