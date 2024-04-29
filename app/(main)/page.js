@@ -36,8 +36,8 @@ export default async function Home() {
   const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
   const pubChartData = await getDepartmentPubChart("pu");
-  const pubChart = await Promise.all(
-    pubChartData?.map(async (item) => {
+  const pubChart = 
+    pubChartData?.map( (item) => {
       return {
         _id: item._id,
         id: item._id.sourceID,
@@ -47,7 +47,6 @@ export default async function Home() {
         value: item.value,
       };
     })
-  );
   const subtypeChart = await getDepartmentSubtypeChart("pu");
   const world = await getDepartmentWorldChart("pu");
   const metrics = await getMetrics({ dept: "pu" });
