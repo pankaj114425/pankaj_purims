@@ -1155,9 +1155,9 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
     },
     {
       $group: {
-        _id: {
-          sourceID: "$source.sourceID",
-          source: "$source.publicationName",
+        _id: 0,
+        _ids: {
+          $addToSet: '$source.sourceID'
         },
         value: { $sum: 1 },
       },
@@ -1165,8 +1165,21 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
     {
       $lookup: {
         from: "sources",
-        localField: "_id.sourceID",
-        foreignField: "_id",
+        let: { ids: "$_ids" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $in: ["$_id", "$$ids"] }
+            }
+          },
+          {
+            $project: {
+              citeScore: "$citeScore",
+              snip: "$snip",
+              sjr: "$sjr",
+            }
+          }
+        ],
         as: "metrics",
       },
     },
@@ -1178,14 +1191,8 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
     {
       $project: {
         _id: 0,
-        // id: "$_id.sourceID",
-        // label: "$_id.source",
-        metrics: {
-          citeScore: "$metrics.citeScore",
-          snip: "$metrics.snip",
-          sjr: "$metrics.sjr",
-        },
-        value: "$value",
+        metrics: "$metrics",
+        value: 1,
       },
     },
   ]).toArray();
