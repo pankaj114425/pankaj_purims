@@ -1165,23 +1165,8 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
     {
       $lookup: {
         from: "sources",
-        let: { sourceID: "$_id.sourceID" },
-        pipeline: [
-          {
-            $match: {
-              $expr: { $eq: ["$_id", "$$sourceID"] },
-              // Add additional match conditions here if applicable
-            }
-          },
-          {
-            $project: {
-              citeScore: "$citeScore",
-              snip: "$snip",
-              sjr: "$sjr",
-              impactFactorData: "$impactFactorData",
-            },
-          },
-        ],
+        localField: "_id.sourceID",
+        foreignField: "_id",
         as: "metrics",
       },
     },
@@ -1193,9 +1178,13 @@ export const getDepartmentPubChart = cache(async (dept, { from, to } = {}) => {
     {
       $project: {
         _id: 0,
-        id: "$_id.sourceID",
-        label: "$_id.source",
-        metrics: "$metrics",
+        // id: "$_id.sourceID",
+        // label: "$_id.source",
+        metrics: {
+          citeScore: "$metrics.citeScore",
+          snip: "$metrics.snip",
+          sjr: "$metrics.sjr",
+        },
         value: "$value",
       },
     },
