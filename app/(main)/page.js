@@ -35,7 +35,7 @@ export default async function Home() {
   data = data?.filter((d) => d._id != "pu");
   const subjectChart = await getDepartmentSubjectChart("pu");
   const yearlyChart = await getDepartmentYearlyChart("pu");
-  const pubChart = await getDepartmentPubChart("pu");
+  // const pubChart = await getDepartmentPubChart("pu");
   // const pubChart = 
   //   pubChartData?.map( (item) => {
   //     return {
